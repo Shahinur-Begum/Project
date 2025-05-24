@@ -12,7 +12,7 @@ Student Role: Students are required to register using a specific email format to
 
 This role-based token system ensures a smooth and secure user experience tailored to different types of users while maintaining strict access control.
 Homepage:
-[Watch Video](https://github.com/Shahinur-Begum/Project/blob/main/WhatsApp%20Video%202025-05-24%20at%2018.37.29_220407be.mp4)
+[Watch Video](https://raw.githubusercontent.com/Shahinur-Begum/Project/main/WhatsApp%20Video%202025-05-24%20at%2018.37.29_220407be.mp4)
 ![Database](https://github.com/Shahinur-Begum/Project/raw/main/database1.jpg)
 ![Homepage](https://github.com/Shahinur-Begum/Project/raw/main/Screenshot%202025-05-24%20175208.png)
 ![Screenshot](https://github.com/Shahinur-Begum/Project/raw/main/Screenshot%202025-05-24%20175816.png)
