@@ -1,5 +1,4 @@
 # Project
-Authentication and Authorization
 Our website implements a secure authentication and authorization system based on JWT (JSON Web Token). The user’s role is embedded within the token, allowing role-based access control across the platform.
 
 API Access: Access to APIs requires a valid JWT token to ensure security and proper authorization.
@@ -13,6 +12,8 @@ Student Role: Students are required to register using a specific email format to
 This role-based token system ensures a smooth and secure user experience tailored to different types of users while maintaining strict access control.
 Homepage:
 [Watch Video](https://raw.githubusercontent.com/Shahinur-Begum/Project/main/WhatsApp%20Video%202025-05-24%20at%2018.37.29_220407be.mp4)
+
+
 ![Database](https://github.com/Shahinur-Begum/Project/raw/main/database1.jpg)
 ![Homepage](https://github.com/Shahinur-Begum/Project/raw/main/Screenshot%202025-05-24%20175208.png)
 ![Screenshot](https://github.com/Shahinur-Begum/Project/raw/main/Screenshot%202025-05-24%20175816.png)
