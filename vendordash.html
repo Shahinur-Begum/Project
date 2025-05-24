@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuickBite — Vendor Dashboard</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f23;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+    }
+    .sidebar {
+      background: #1a1a2e;
+      width: 250px;
+      min-height: 100vh;
+      padding-top: 2rem;
+      box-shadow: 2px 0 12px rgba(102, 126, 234, 0.3);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 1000;
+    }
+    .sidebar h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #667eea;
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      letter-spacing: 1.5px;
+      user-select: none;
+    }
+    .nav-btn {
+      padding: 1rem 2rem;
+      color: #94a3b8;
+      font-size: 1rem;
+      text-align: left;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease, color 0.3s ease;
+      width: 100%;
+      border-left: 4px solid transparent;
+      user-select: none;
+    }
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: #2a2a45;
+      color: #e2e8f0;
+      border-left-color: #667eea;
+    }
+    .nav-btn.logout {
+      margin-top: auto;
+      color: #e53e3e;
+      font-weight: 700;
+      border-left-color: transparent;
+    }
+    .nav-btn.logout:hover {
+      background: #722626;
+      color: #ffb3b3;
+      border-left-color: transparent;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 2.5rem 2rem;
+      flex-grow: 1;
+      max-width: calc(100% - 250px);
+    }
+    a.back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    a.back-link:hover {
+      color: #667eea;
+    }
+    a.back-link::before {
+      content: '←';
+      font-weight: 900;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    header h1.logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1.5px;
+      margin-bottom: 0.5rem;
+    }
+    header p.subtitle {
+      color: #94a3b8;
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+    table.orders-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      font-size: 1rem;
+      color: #cbd5e1;
+      user-select: none;
+    }
+    table.orders-table thead tr th {
+      text-align: left;
+      font-weight: 700;
+      padding: 0.8rem 1rem;
+      background: #2a2a45;
+      border-radius: 12px 12px 0 0;
+      user-select: none;
+    }
+    table.orders-table tbody tr {
+      background: #1e1e3b;
+      border-radius: 12px;
+      box-shadow: inset 0 0 15px rgba(118, 75, 162, 0.3);
+      transition: background 0.3s ease;
+    }
+    table.orders-table tbody tr:nth-child(even) {
+      background: #25254e;
+    }
+    table.orders-table tbody tr:hover {
+      background: #4c3a87;
+      cursor: default;
+    }
+    table.orders-table tbody td {
+      padding: 1rem;
+      vertical-align: middle;
+      border: none;
+    }
+    .status-paid {
+      color: #38a169;
+      font-weight: 700;
+    }
+    .status-pending {
+      color: #d69e2e;
+      font-weight: 700;
+    }
+    .status-failed {
+      color: #e53e3e;
+      font-weight: 700;
+    }
+    .order-processing {
+      color: #667eea;
+      font-weight: 600;
+    }
+    .order-shipped {
+      color: #764ba2;
+      font-weight: 600;
+    }
+    .order-delivered {
+      color: #38a169;
+      font-weight: 600;
+    }
+    .order-cancelled {
+      color: #e53e3e;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar" aria-label="Vendor Dashboard Navigation">
+    <h2>QuickBite</h2>
+    <button class="nav-btn" id="btnMenu">Menu</button>
+    <button class="nav-btn active" id="btnOrders">Orders</button>
+    <button class="nav-btn" id="btnOrderItems">Order Items</button>
+    <button class="nav-btn" id="btnReviews">Reviews</button>
+    <button class="nav-btn logout" id="btnLogout">Log Out</button>
+  </nav>
+
+  <main class="main-content">
+    <a href="homepage.html" class="back-link">Back to Home</a>
+
+    <header>
+      <h1 class="logo">Welcome, Vendor!</h1>
+      <p class="subtitle">Here are the orders made to you</p>
+    </header>
+
+    <table class="orders-table" aria-label="Orders List">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Order Date</th>
+          <th>Total Amount (BDT)</th>
+          <th>Payment Status</th>
+          <th>Order Status</th>
+        </tr>
+      </thead>
+      <tbody id="ordersTableBody"></tbody>
+    </table>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('jwtToken');
+      if (!token) {
+        alert('Please login first.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Placeholder example data - replace with your real API call if needed
+      const vendorOrders = [
+        { id: 101, orderDate: '2025-05-22', totalAmount: 450.00, paymentStatus: 'Paid', orderStatus: 'Delivered' },
+        { id: 102, orderDate: '2025-05-23', totalAmount: 300.00, paymentStatus: 'Pending', orderStatus: 'Processing' },
+        { id: 103, orderDate: '2025-05-23', totalAmount: 275.00, paymentStatus: 'Failed', orderStatus: 'Cancelled' },
+        { id: 104, orderDate: '2025-05-24', totalAmount: 120.00, paymentStatus: 'Paid', orderStatus: 'Shipped' }
+      ];
+
+      const tbody = document.getElementById('ordersTableBody');
+
+      function getPaymentStatusClass(status) {
+        switch(status.toLowerCase()) {
+          case 'paid': return 'status-paid';
+          case 'pending': return 'status-pending';
+          case 'failed': return 'status-failed';
+          default: return '';
+        }
+      }
+
+      function getOrderStatusClass(status) {
+        switch(status.toLowerCase()) {
+          case 'processing': return 'order-processing';
+          case 'shipped': return 'order-shipped';
+          case 'delivered': return 'order-delivered';
+          case 'cancelled': return 'order-cancelled';
+          default: return '';
+        }
+      }
+
+      function renderOrders() {
+        tbody.innerHTML = '';
+        if (vendorOrders.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:1rem; color:#64748b;">No orders found.</td></tr>';
+          return;
+        }
+
+        vendorOrders.forEach(order => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td data-label="Order ID">${order.id}</td>
+            <td data-label="Order Date">${order.orderDate}</td>
+            <td data-label="Total Amount">${order.totalAmount.toFixed(2)}</td>
+            <td data-label="Payment Status" class="${getPaymentStatusClass(order.paymentStatus)}">${order.paymentStatus}</td>
+            <td data-label="Order Status" class="${getOrderStatusClass(order.orderStatus)}">${order.orderStatus}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      renderOrders();
+
+      // Navigation button click handlers
+      document.getElementById('btnMenu').addEventListener('click', () => {
+        window.location.href = 'menu.html';
+      });
+
+      document.getElementById('btnOrders').addEventListener('click', () => {
+        // Current page, no action needed
+      });
+
+      document.getElementById('btnOrderItems').addEventListener('click', () => {
+        window.location.href = 'order_items.html';
+      });
+
+      document.getElementById('btnReviews').addEventListener('click', () => {
+        window.location.href = 'vendor_reviews.html';
+      });
+
+      document.getElementById('btnLogout').addEventListener('click', () => {
+        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('vendorId');
+        window.location.href = 'login.html';
+      });
+    });
+  </script>
+</body>
+</html>
